@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 // let cat = "tom";
 
 // localStorage.setItem("katukas", cat)
@@ -94,7 +94,7 @@
 
 // if (newArray) {
 //   alert("toks jau yra")
-// } 
+// }
 // else {
 //   dataFromLS2.push(person1)
 //   localStorage.setItem("persons", JSON.stringify(dataFromLS2));
@@ -115,7 +115,7 @@
 
 // if (ieskomas){
 //     alert("toks jau yra")
-// } else { 
+// } else {
 //     atsakymas.push(person)
 //     localStorage.setItem("persons", JSON.stringify(atsakymas))
 //     alert("naujas irasas patalpintas i LS")
@@ -133,62 +133,89 @@
 
 // if (ieskomas1){
 //     alert("toks jau yra")
-// } else { 
+// } else {
 //     duomenysIsLS.push(person1)
 //     localStorage.setItem("persons", JSON.stringify(duomenysIsLS))
 // }
 
-import { result } from "./data.js"
+// import { result } from "./data.js"
 
-console.log(result)
+// console.log(result)
 
-const infoIsLS = localStorage.getItem("favorites");
-const favorites = infoIsLS === null ? [] : JSON.parse(infoIsLS)
-console.log(favorites)
+// const infoIsLS = localStorage.getItem("favorites");
+// const favorites = infoIsLS === null ? [] : JSON.parse(infoIsLS)
+// console.log(favorites)
 
-const getMovie = (id) =>{
-    const filmas = result.find((el)=> el.id === id)
-    // console.log(filmas)
-    return filmas
-}
-getMovie(436270)
+// const getMovie = (id) =>{
+//     const filmas = result.find((el)=> el.id === id)
+//     // console.log(filmas)
+//     return filmas
+// }
+// getMovie(436270)
 
-const myMovies = (id) =>{
-const filmai ={
-    id: getMovie(id).id,
-    title: getMovie(id).title
-}
-const newFavorites = favorites.find((el)=> el.id === filmai.id)
-if (newFavorites){
-    alert("movie already exist")
-} else {
-    favorites.push(filmai)
-    localStorage.setItem("favorites", JSON.stringify(favorites))
-    alert("movie inserted")
-}
-}
+// const myMovies = (id) =>{
+// const filmai ={
+//     id: getMovie(id).id,
+//     title: getMovie(id).title
+// }
+// const newFavorites = favorites.find((el)=> el.id === filmai.id)
+// if (newFavorites){
+//     alert("movie already exist")
+// } else {
+//     favorites.push(filmai)
+//     localStorage.setItem("favorites", JSON.stringify(favorites))
+//     alert("movie inserted")
+// }
+// }
 
-const print = () =>{
-    const fromLS = JSON.parse(localStorage.getItem("favorites"))
-    // console.log(fromLS)
+// const print = () =>{
+//     const fromLS = JSON.parse(localStorage.getItem("favorites"))
+//     // console.log(fromLS)
 
-    fromLS.forEach((el) => console.log(`id: ${el.id}, title: ${el.title}`))
-}
-print()
+//     fromLS.forEach((el) => console.log(`id: ${el.id}, title: ${el.title}`))
+// }
+// print()
 
-const trinimas = (id) => {
-    const fromLS = JSON.parse(localStorage.getItem("favorites"))
+// const trinimas = (id) => {
+//     const fromLS = JSON.parse(localStorage.getItem("favorites"))
 
-    const movieIndex = fromLS.findIndex((movie) => movie.id === id)
-    // console.log(movieIndex)
-    if (movieIndex>-1){
-        alert(`istrintas filmas ${fromLS[movieIndex].title}`)
-        fromLS.splice(movieIndex, 1)
-        localStorage.setItem("favorites", JSON.stringify(fromLS))
-    }
-    else {
-        alert("movie not found")
-    }
-}
+//     const movieIndex = fromLS.findIndex((movie) => movie.id === id)
+//     // console.log(movieIndex)
+//     if (movieIndex>-1){
+//         alert(`istrintas filmas ${fromLS[movieIndex].title}`)
+//         fromLS.splice(movieIndex, 1)
+//         localStorage.setItem("favorites", JSON.stringify(fromLS))
+//     }
+//     else {
+//         alert("movie not found")
+//     }
+// }
 // myMovies(436270)
 // trinimas(436270)
+
+import { duomenys } from "./data1.js";
+
+const infoIsLS = localStorage.getItem("salys");
+const salys = infoIsLS === null ? [] : JSON.parse(infoIsLS);
+duomenys.forEach((country, index) => {
+  const isCountryInLS = salys.some(
+    (savedCountry) => savedCountry.name === country.name.common
+  );
+  if (!isCountryInLS) {
+    const addCountry = {
+      name: country.name.common,
+      capital:
+        country.capital && country.capital.length > 0
+          ? country.capital[0]
+          : "Data not found",
+    };
+    salys.push(addCountry);
+    console.log(`${index + 1} data: `);
+    console.log(`country name: ${addCountry.name}`);
+    console.log(`capital: ${addCountry.capital}`);
+    console.log("-----------------------------");
+  }
+});
+localStorage.setItem("salys", JSON.stringify(salys));
+// kai nebeloadina:
+// localStorage.clear()
